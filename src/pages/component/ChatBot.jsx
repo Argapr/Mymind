@@ -19,9 +19,9 @@ function ChatBot() {
             { text: "Type 'help' to see available commands.", isSystem: true },
         ]);
         
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
+        // if (inputRef.current) {
+        //     inputRef.current.focus();
+        // }
     }, []);
 
     const scrollToBottom = () => {
@@ -137,7 +137,7 @@ function ChatBot() {
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
                         className="flex-grow ml-2 bg-[#0C0C0C] outline-none text-[#CCCCCC]"
-                        autoFocus
+                        // autoFocus
                     />
                 </div>
             </div>
