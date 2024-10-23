@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 const UploadToken = () => {
+    const [ca, setCa] = useState(""); 
     const [telegram, setTelegram] = useState("");
     const [twitter, setTwitter] = useState("");
     const [dexscreener, setDexscreener] = useState("");
@@ -24,6 +25,7 @@ const UploadToken = () => {
                 twitter,
                 dexscreener,
                 pumpFun,
+                ca,
             },
         });
     };
@@ -104,6 +106,24 @@ const UploadToken = () => {
                     onSubmit={handleSubmit}
                     className="space-y-6 bg-[#1a1a1a] p-8 rounded-xl shadow-xl"
                 >
+                    <div className="space-y-2">
+                        <label className="flex items-center text-sm font-medium text-gray-300">
+                            <BarChart3 className="h-4 w-4 mr-2 text-[#0f0]" />
+                            CA
+                        </label>
+                        <input
+                            type="text"
+                            value={ca}
+                            onChange={(e) => setCa(e.target.value)}
+                            required
+                            className="w-full px-4 py-3 rounded-lg bg-[#262626] border border-gray-800 
+                  text-white placeholder-gray-500 focus:outline-none 
+                  focus:ring-2 focus:ring-[#0f0] focus:border-transparent
+                  transition-all duration-200"
+                            placeholder="Enter CA details"
+                        />
+                    </div>
+
                     <div className="space-y-4">
                         {/* Telegram Input */}
                         <div className="space-y-2">

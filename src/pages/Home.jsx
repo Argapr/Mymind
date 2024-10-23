@@ -1,6 +1,7 @@
 import React from "react";
 import ChatBot from "./component/ChatBot";
 import { useLocation } from "react-router-dom";
+const { telegram, twitter, dexscreener, pumpFun, ca } = location.state || {};
 
 const Home = () => {
     const location = useLocation();
@@ -58,7 +59,7 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                             communication and connectivity.
                         </p>
                         <p className="mt-4 text-xl font-medium text-[#0f0] border-r-4 border-[#0f0]">
-                            CA : GdUAYnK1LZLZi3qzU17Cz5VRtf1SdFwmnFhr1YxCpump
+                            CA : {ca || "TBA"}
                         </p>
                         <div className="flex gap-4 text-[#27c93f] text-sm">
                             {telegram && (
