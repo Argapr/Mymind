@@ -9,8 +9,8 @@ import Home from "./pages/Home";
 import Terminal from "./pages/component/Terminal";
 import Login from "./pages/component/Login";
 import Upload from "./pages/component/UploadToken";
+import CreateToken from "./pages/CreateToken";
 import { ProtectedRoute } from "./pages/component/ProtectedRoute";
-
 
 const App = () => {
     return (
@@ -25,15 +25,9 @@ const App = () => {
                         </ProtectedRoute>
                     }
                 />
+                <Route path="/create" element={<CreateToken />} />
                 <Route path="/login" element={<Login />} />
-                <Route
-                    path="/terminal"
-                    element={
-                        <ProtectedRoute>
-                            <Terminal />
-                        </ProtectedRoute>
-                    }
-                />
+                <Route path="/terminal" element={<Terminal />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>

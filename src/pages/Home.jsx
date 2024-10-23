@@ -1,8 +1,9 @@
 import React from "react";
 import ChatBot from "./component/ChatBot";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { telegram, twitter, dexscreener, pumpFun, ca } =
         location.state || {};
@@ -136,14 +137,15 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    https://mymindterminal.pro/terminal
+                                    https:mymind-self.vercel.app/terminal
                                 </a>
 
                                 <h2 className="text-2xl text-[#0f0] mt-8 mb-4">
                                     Autonomous Token
                                 </h2>
                                 <p className="text-[#27c93f]">Coming Soon!</p>
-                                <button className="mt-2 w-full px-6 py-3 border-2 border-[#0f0] hover:bg-[#0f0] text-[#0f0] hover:text-black transition-colors">
+                                <button className="mt-2 w-full px-6 py-3 border-2 border-[#0f0] hover:bg-[#0f0] text-[#0f0] hover:text-black transition-colors"
+                                onClick={() => navigate('/create')}>
                                     Create Token!
                                 </button>
                             </div>
