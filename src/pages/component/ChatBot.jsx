@@ -80,9 +80,8 @@ function ChatBot() {
                     const result = await model.generateContent(fullArgs);
                     const response = result.response;
                     const text = response.text();
-                    setChatHistory(prev => [...prev, 
-                        { text: `bot : ${fullArgs}`, isUser: true },
-                        { text: text, isBot: true }
+                    setChatHistory(prev => [...prev,
+                        { text: `bot : ${text}`, isBot: true }
                     ]);
                 } catch (error) {
                     setChatHistory(prev => [...prev, 

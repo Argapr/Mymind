@@ -81,8 +81,7 @@ function Terminal() {
                     const response = result.response;
                     const text = response.text();
                     setChatHistory(prev => [...prev, 
-                        { text: `bot : ${fullArgs}`, isUser: true },
-                        { text: text, isBot: true }
+                        { text: `bot : ${text}`, isBot: true }
                     ]);
                 } catch (error) {
                     setChatHistory(prev => [...prev, 
