@@ -1,11 +1,11 @@
 import React from "react";
 import ChatBot from "./component/ChatBot";
 import { useLocation } from "react-router-dom";
-const { telegram, twitter, dexscreener, pumpFun, ca } = location.state || {};
 
 const Home = () => {
     const location = useLocation();
-    const { telegram, twitter, dexscreener, pumpFun } = location.state || {};
+    const { telegram, twitter, dexscreener, pumpFun, ca } =
+        location.state || {};
 
     return (
         <div className="relative h-screen w-screen overflow-x-hidden font-mono">
@@ -58,9 +58,12 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                             Your personal virtual assistant for seamless
                             communication and connectivity.
                         </p>
-                        <p className="mt-4 text-xl font-medium text-[#0f0] border-r-4 border-[#0f0]">
-                            CA : {ca || "TBA"}
-                        </p>
+                        {ca && (
+                            <p className="mt-4 text-xl font-medium text-[#0f0] border-r-4 border-[#0f0]">
+                                CA : {ca || "TBA"}
+                            </p>
+                        )}
+
                         <div className="flex gap-4 text-[#27c93f] text-sm">
                             {telegram && (
                                 <a href={telegram} className="underline">
