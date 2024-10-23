@@ -8,56 +8,56 @@ import {
     Rocket,
     LogOut,
 } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+    "https://xueufgqhythsiqzvonjo.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1ZXVmZ3FoeXRoc2lxenZvbmpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2ODU1MzYsImV4cCI6MjA0NTI2MTUzNn0.h-NYxKNsLWemC3lhV5FitytW-W8ls2-7wvBAnj2Q2uU"
+);
 
 const UploadToken = () => {
-    const [ca, setCa] = useState(""); 
+    const [ca, setCa] = useState("");
     const [telegram, setTelegram] = useState("");
     const [twitter, setTwitter] = useState("");
     const [dexscreener, setDexscreener] = useState("");
     const [pumpFun, setPumpFun] = useState("");
+    const [feedback, setFeedback] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate("/", {
-            state: {
-                telegram,
-                twitter,
-                dexscreener,
-                pumpFun,
-                ca,
-            },
-        });
+
+        // Basic validation
+        if (!ca && !telegram && !twitter && !dexscreener && !pumpFun) {
+            alert("Please fill at least one field before submitting.");
+            return;
+        }
+
+        setLoading(true);
+        const { data, error } = await supabase
+            .from("web_data")
+            .update({
+                ca: ca || "defaultValue", // Set default value if ca is empty
+                telegram: telegram || "#", // Default link as #
+                twitter: twitter || "#",
+                dexscreener: dexscreener || "#",
+                pump_fun: pumpFun || "#",
+            })
+            .eq("id", "1")
+            .select();
+        setLoading(false);
+
+        if (error) {
+            setFeedback("Error updating data.");
+            console.error("Error:", error);
+        } else {
+            setFeedback("Data updated successfully!");
+            navigate("/", {
+                state: { telegram, twitter, dexscreener, pumpFun, ca },
+            });
+        }
     };
-
-    useEffect(() => {
-        const handlePopState = (e) => {
-            e.preventDefault();
-            // Optional: Show confirmation dialog
-            const confirmExit = window.confirm(
-                "Are you sure you want to leave this page?"
-            );
-            if (confirmExit) {
-                // Clear authentication and redirect to login
-                localStorage.removeItem("isAuthenticated");
-                navigate("/", { replace: true });
-            }
-        };
-
-        window.addEventListener("popstate", handlePopState);
-
-        // Cleanup
-        return () => {
-            window.removeEventListener("popstate", handlePopState);
-        };
-    }, [navigate]);
-
-    useEffect(() => {
-        return () => {
-            // Optional: Clear authentication on component unmount
-            // localStorage.removeItem('isAuthenticated');
-        };
-    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("isAuthenticated");
@@ -69,24 +69,9 @@ const UploadToken = () => {
             <div className="absolute top-4 right-4 group">
                 <button
                     onClick={handleLogout}
-                    className="p-2 rounded-full bg-[#1a1a1a] hover:bg-red-600/20 
-                             transition-all duration-300 ease-in-out
-                             group-hover:rotate-12 relative"
-                    aria-label="Logout"
+                    className="p-2 rounded-full bg-[#1a1a1a] hover:bg-red-600/20 transition-all"
                 >
-                    <LogOut
-                        className="h-6 w-6 text-gray-400 group-hover:text-red-500 
-                                 transition-colors duration-300"
-                    />
-                    {/* Tooltip */}
-                    <span
-                        className="absolute -bottom-8 left-1/2 -translate-x-1/2 
-                                   px-2 py-1 bg-gray-900 text-white text-xs rounded-md 
-                                   opacity-0 group-hover:opacity-100 transition-opacity 
-                                   whitespace-nowrap pointer-events-none"
-                    >
-                        Logout
-                    </span>
+                    <LogOut className="h-6 w-6 text-gray-400 group-hover:text-red-500 transition-colors" />
                 </button>
             </div>
             <div className="max-w-2xl mx-auto">
@@ -201,18 +186,16 @@ const UploadToken = () => {
                             />
                         </div>
                     </div>
-
                     <button
                         type="submit"
-                        className="w-full py-3 px-4 rounded-lg bg-[#0f0] hover:bg-[#0f0]/90
-                                 text-black font-medium focus:outline-none focus:ring-2 
-                                 focus:ring-offset-2 focus:ring-[#0f0] focus:ring-offset-[#0c0c0c]
-                                 transition-all duration-200 shadow-lg shadow-[#0f0]/20
-                                 flex items-center justify-center space-x-2"
+                        disabled={loading}
+                        className="w-full py-3 px-4 bg-[#0f0]"
                     >
-                        <span>Submit</span>
-                        <Send className="h-4 w-4" />
+                        {loading ? "Submitting..." : "Submit"}
                     </button>
+                    {feedback && (
+                        <p className="text-center text-sm">{feedback}</p>
+                    )}
                 </form>
             </div>
         </div>
