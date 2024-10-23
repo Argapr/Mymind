@@ -40,7 +40,7 @@ const UploadToken = () => {
             if (confirmExit) {
                 // Clear authentication and redirect to login
                 localStorage.removeItem("isAuthenticated");
-                navigate("/login", { replace: true });
+                navigate("/", { replace: true });
             }
         };
 
@@ -61,7 +61,7 @@ const UploadToken = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("isAuthenticated");
-        navigate("/login", { replace: true });
+        navigate("/", { replace: true });
     };
 
     return (

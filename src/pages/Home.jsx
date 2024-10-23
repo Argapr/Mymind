@@ -58,34 +58,29 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                             Your personal virtual assistant for seamless
                             communication and connectivity.
                         </p>
-                        {ca && (
+                        {(ca || "TBA") && (
                             <p className="mt-4 text-xl font-medium text-[#0f0] border-r-4 border-[#0f0]">
                                 CA : {ca || "TBA"}
                             </p>
                         )}
 
                         <div className="flex gap-4 text-[#27c93f] text-sm">
-                            {telegram && (
-                                <a href={telegram} className="underline">
-                                    [Telegram]
-                                </a>
-                            )}
-                            {twitter && (
-                                <a href={twitter} className="underline">
-                                    [X]
-                                </a>
-                            )}
-                            {dexscreener && (
-                                <a href={dexscreener} className="underline">
-                                    [Dexscreener]
-                                </a>
-                            )}
-                            {pumpFun && (
-                                <a href={pumpFun} className="underline">
-                                    [PumpFun]
-                                </a>
-                            )}
+                            <a href={telegram || "#"} className="underline">
+                                {telegram ? "[Telegram]" : "[Telegram]"}
+                            </a>
+                            <a href={twitter || "#"} className="underline">
+                                {twitter ? "[X]" : "[X]"}
+                            </a>
+                            <a href={dexscreener || "#"} className="underline">
+                                {dexscreener
+                                    ? "[Dexscreener]"
+                                    : "[Dexscreener]"}
+                            </a>
+                            <a href={pumpFun || "#"} className="underline">
+                                {pumpFun ? "[PumpFun]" : "[PumpFun]"}
+                            </a>
                         </div>
+
                         <div className="mt-20 text-[#0f0]">
                             <p className="text-2xl">About My Mind Terminal</p>
                             <p className="pt-2 text-sm text-[#27c93f]">
