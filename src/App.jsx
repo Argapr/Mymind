@@ -6,7 +6,7 @@ import {
     Navigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import Terminal from "./pages/component/ChatBot";
+import Terminal from "./pages/component/Terminal";
 import Login from "./pages/component/Login";
 import Upload from "./pages/component/UploadToken";
 import { ProtectedRoute } from "./pages/component/ProtectedRoute";

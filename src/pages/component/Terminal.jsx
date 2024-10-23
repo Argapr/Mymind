@@ -109,7 +109,7 @@ function Terminal() {
     };
 
     return (
-        <div className="flex flex-col h-full w-full bg-[#0C0C0C] p-2 pt-5 font-monospace text-sm">
+        <div className="flex flex-col h-screen w-full bg-[#0C0C0C] p-2 pt-5 font-monospace text-sm">
             <div 
                 ref={chatContainerRef}
                 className="flex-grow overflow-y-auto whitespace-pre-wrap"
