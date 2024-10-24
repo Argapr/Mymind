@@ -43,6 +43,7 @@ $$ |$$$/ $$ |    $$ |    $$ |$$$/ $$ | _$$ |_ $$ |$$$$ |$$ |__$$ |
 $$ | $/  $$ |    $$ |    $$ | $/  $$ |/ $$   |$$ | $$$ |$$    $$/ 
 $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                         </pre>
+
                         <p className="py-5 text-3xl font-medium text-[#0f0]">
                             My Mind Terminal
                         </p>
@@ -144,8 +145,10 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                                     Autonomous Token
                                 </h2>
                                 <p className="text-[#27c93f]">Coming Soon!</p>
-                                <button className="mt-2 w-full px-6 py-3 border-2 border-[#0f0] hover:bg-[#0f0] text-[#0f0] hover:text-black transition-colors"
-                                onClick={() => navigate('/create')}>
+                                <button
+                                    className="mt-2 w-full px-6 py-3 border-2 border-[#0f0] hover:bg-[#0f0] text-[#0f0] hover:text-black transition-colors"
+                                    onClick={() => navigate("/create")}
+                                >
                                     Create Token!
                                 </button>
                             </div>

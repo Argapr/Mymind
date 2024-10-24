@@ -51,25 +51,46 @@ const CreateToken = () => {
         type = "text",
         className = "",
         spinner = false,
-    }) => (
-        <div className="space-y-2">
-            <label className="text-white font-bold">{label}</label>
-            <div className="relative">
-                <input
-                    type={type}
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    className={`w-full bg-[#1a1a1a] rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-[#0f0] ${className}`}
-                />
-                {spinner && (
-                    <SpinButton
-                        value={value}
-                        onChange={(newValue) => onChange(newValue.toString())}
-                    />
-                )}
+    }) => {
+        const SpinButton = ({ value, onChange }) => (
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col">
+                <button
+                    className="text-gray-400 hover:text-[#0f0]"
+                    onClick={() => onChange(Number(value) + 1)}
+                >
+                    <ChevronUp size={16} />
+                </button>
+                <button
+                    className="text-gray-400 hover:text-[#0f0]"
+                    onClick={() => onChange(Math.max(0, Number(value) - 1))}
+                >
+                    <ChevronDown size={16} />
+                </button>
             </div>
-        </div>
-    );
+        );
+
+        return (
+            <div className="space-y-2">
+                <label className="text-white font-bold">{label}</label>
+                <div className="relative">
+                    <input
+                        type={type}
+                        value={value}
+                        onChange={(e) => onChange(e.target.value)}
+                        className={`w-full bg-[#1a1a1a] rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-[#0f0] ${className}`}
+                    />
+                    {spinner && (
+                        <SpinButton
+                            value={value}
+                            onChange={(newValue) =>
+                                onChange(newValue.toString())
+                            }
+                        />
+                    )}
+                </div>
+            </div>
+        );
+    };
 
     const ToggleSwitch = ({ label, value, onChange, cost }) => (
         <div className="flex items-center justify-between">
@@ -138,7 +159,7 @@ const CreateToken = () => {
                                         supply: val,
                                     }))
                                 }
-                                spinner
+                                
                             />
                         </div>
 
