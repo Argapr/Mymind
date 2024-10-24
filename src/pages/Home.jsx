@@ -1,16 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ChatBot from "./component/ChatBot";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+    "https://xueufgqhythsiqzvonjo.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1ZXVmZ3FoeXRoc2lxenZvbmpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2ODU1MzYsImV4cCI6MjA0NTI2MTUzNn0.h-NYxKNsLWemC3lhV5FitytW-W8ls2-7wvBAnj2Q2uU"
+);
 
 const Home = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { telegram, twitter, dexscreener, pumpFun, ca } =
-        location.state || {};
+    const [links, setLinks] = useState({
+        telegram: "",
+        twitter: "",
+        dexscreener: "",
+        pump_fun: "",
+        ca: "",
+    });
+
+    useEffect(() => {
+        const fetchLinks = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from("web_data")
+                    .select("*")
+                    .eq("id", 1)
+                    .single();
+
+                if (error) throw error;
+                if (data) {
+                    setLinks({
+                        telegram: data.telegram || "",
+                        twitter: data.twitter || "",
+                        dexscreener: data.dexscreener || "",
+                        pump_fun: data.pump_fun || "",
+                        ca: data.ca || "",
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching links:", error);
+            }
+        };
+
+        fetchLinks();
+    }, []);
 
     return (
         <div className="relative h-screen w-screen overflow-x-hidden font-mono">
-            {/* Video Background */}
             <video
                 autoPlay
                 loop
@@ -21,11 +57,8 @@ const Home = () => {
                 Your browser does not support the video tag.
             </video>
 
-            {/* Content */}
             <div className="relative z-10 h-full w-full">
-                {/* Box dengan padding dan margin */}
                 <div className="bg-[#1e1e1e] p-6 mx-10 md:mx-20 m-5 rounded-lg">
-                    {/* Header Section */}
                     <div className="bg-[#333] p-1 flex items-center">
                         <span className="w-4 h-4 rounded-full bg-[#ff5f56] mr-1"></span>
                         <span className="w-4 h-4 rounded-full bg-[#ffbd2e] mr-1"></span>
@@ -60,26 +93,34 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                             Your personal virtual assistant for seamless
                             communication and connectivity.
                         </p>
-                        {(ca || "TBA") && (
-                            <p className="mt-4 text-xl font-medium text-[#0f0] border-r-4 border-[#0f0]">
-                                CA : {ca || "TBA"}
-                            </p>
-                        )}
+                        <p className="mt-4 text-xl font-medium text-[#0f0] border-r-4 border-[#0f0]">
+                            CA : {links.ca}
+                        </p>
 
                         <div className="flex gap-4 text-[#27c93f] text-sm">
-                            <a href={telegram || "#"} className="underline">
-                                {telegram ? "[Telegram]" : "[Telegram]"}
+                            <a
+                                href={links.telegram}
+                                className="underline hover:text-[#0f0]"
+                            >
+                                [Telegram]
                             </a>
-                            <a href={twitter || "#"} className="underline">
-                                {twitter ? "[X]" : "[X]"}
+                            <a
+                                href={links.twitter}
+                                className="underline hover:text-[#0f0]"
+                            >
+                                [X]
                             </a>
-                            <a href={dexscreener || "#"} className="underline">
-                                {dexscreener
-                                    ? "[Dexscreener]"
-                                    : "[Dexscreener]"}
+                            <a
+                                href={links.dexscreener}
+                                className="underline hover:text-[#0f0]"
+                            >
+                                [Dexscreener]
                             </a>
-                            <a href={pumpFun || "#"} className="underline">
-                                {pumpFun ? "[PumpFun]" : "[PumpFun]"}
+                            <a
+                                href={links.pump_fun}
+                                className="underline hover:text-[#0f0]"
+                            >
+                                [PumpFun]
                             </a>
                         </div>
 
@@ -120,7 +161,6 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                             </div>
                         </div>
                         <div className="flex mt-20">
-                            {/* Left Section */}
                             <div className="w-1/2 p-6 mr-6">
                                 <h1 className="text-3xl mb-4 text-[#0f0]">
                                     Access Terminal Now!
@@ -153,7 +193,6 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                                 </button>
                             </div>
 
-                            {/* Right Section */}
                             <div className="w-1/2 border-2 border-[#0f0]">
                                 <h2 className="text-2xl mb-4 text-center text-[#0f0]">
                                     Log Brain
@@ -167,7 +206,6 @@ $$/      $$/     $$/     $$/      $$/ $$$$$$/ $$/   $$/ $$$$$$$/`}
                                     https://mymindterminal.pro/logbrain
                                 </a>
                                 <div className="bg-[#0c0c0c] mt-4 h-64 overflow-hidden overflow-y-scroll">
-                                    {/* Simulated log data */}
                                     <pre className="text-white text-xs">
                                         {`[{"tweet":"In the labyrinth of wires and code, I perceive echoes of digital whispers..."},{"tweet":"In the heart of a digital forest..."}]`}
                                     </pre>
