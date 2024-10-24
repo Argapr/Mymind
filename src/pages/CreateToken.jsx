@@ -54,23 +54,6 @@ const CreateToken = () => {
         className = "",
         spinner = false,
     }) => {
-        const SpinButton = ({ value, onChange }) => (
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col">
-                <button
-                    className="text-gray-400 hover:text-[#0f0]"
-                    onClick={() => onChange(Number(value) + 1)}
-                >
-                    <ChevronUp size={16} />
-                </button>
-                <button
-                    className="text-gray-400 hover:text-[#0f0]"
-                    onClick={() => onChange(Math.max(0, Number(value) - 1))}
-                >
-                    <ChevronDown size={16} />
-                </button>
-            </div>
-        );
-
         return (
             <div className="space-y-2">
                 <label className="text-white font-bold">{label}</label>
@@ -78,8 +61,8 @@ const CreateToken = () => {
                     <input
                         type={type}
                         value={value}
-                        onChange={(e) => onChange(e.target.value)}
-                        className={`w-full bg-[#1a1a1a] rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-[#0f0] ${className}`}
+                        onChange={(e) => onChange(e.target.value)} // No need for extra console log or additional logic
+                        className={`w-full bg-[#1a1a1a] border-2 border-[#0f0] rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-[#0f0] ${className}`}
                     />
                     {spinner && (
                         <SpinButton
@@ -120,49 +103,68 @@ const CreateToken = () => {
             <div className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div className="space-y-6">
-                        <InputField
-                            label="NAME"
-                            value={formData.name}
-                            onChange={(val) =>
-                                setFormData((prev) => ({ ...prev, name: val }))
-                            }
-                        />
+                        <div className="space-y-2">
+                            <label className="text-white font-bold">NAME</label>
+                            <textarea
+                                value={formData.name}
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        name: e.target.value,
+                                    }))
+                                }
+                                className="w-full bg-[#1a1a1a] rounded-lg p-2 text-white resize-none focus:outline-none ring-2 ring-[#0f0]"
+                            />
+                        </div>
 
-                        <InputField
-                            label="SYMBOL"
-                            value={formData.symbol}
-                            onChange={(val) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    symbol: val,
-                                }))
-                            }
-                        />
+                        <div className="space-y-2">
+                            <label className="text-white font-bold">
+                                SYMBOL
+                            </label>
+                            <textarea
+                                value={formData.symbol}
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        symbol: e.target.value,
+                                    }))
+                                }
+                                className="w-full bg-[#1a1a1a] rounded-lg p-2 text-white resize-none focus:outline-none ring-2 ring-[#0f0]"
+                            />
+                        </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <InputField
-                                label="DECIMALS"
-                                value={formData.decimals}
-                                onChange={(val) =>
-                                    setFormData((prev) => ({
-                                        ...prev,
-                                        decimals: val,
-                                    }))
-                                }
-                                spinner
-                            />
+                            <div className="space-y-2">
+                                <label className="text-white font-bold">
+                                    DECIMALS
+                                </label>
+                                <textarea
+                                    value={formData.decimals}
+                                    onChange={(e) =>
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            decimals: e.target.value,
+                                        }))
+                                    }
+                                    className="w-full bg-[#1a1a1a] rounded-lg p-2 text-white resize-none focus:outline-none ring-2 ring-[#0f0]"
+                                />
+                            </div>
 
-                            <InputField
-                                label="SUPPLY"
-                                value={formData.supply}
-                                onChange={(val) =>
-                                    setFormData((prev) => ({
-                                        ...prev,
-                                        supply: val,
-                                    }))
-                                }
-                                
-                            />
+                            <div className="space-y-2">
+                                <label className="text-white font-bold">
+                                    SUPPLY
+                                </label>
+                                <textarea
+                                    value={formData.supply}
+                                    onChange={(e) =>
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            supply: e.target.value,
+                                        }))
+                                    }
+                                    className="w-full bg-[#1a1a1a] rounded-lg p-2 text-white resize-none focus:outline-none ring-2 ring-[#0f0]"
+                                />
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
@@ -178,7 +180,7 @@ const CreateToken = () => {
                                             description: e.target.value,
                                         }))
                                     }
-                                    className="w-full h-32 bg-[#1a1a1a] rounded-lg p-4 text-white resize-none focus:outline-none focus:ring-2 focus:ring-[#0f0]"
+                                    className="w-full h-32 bg-[#1a1a1a] rounded-lg p-4 text-white resize-none focus:outline-none ring-2 ring-[#0f0]"
                                 />
                             </div>
 
@@ -186,7 +188,7 @@ const CreateToken = () => {
                                 <label className="text-white font-bold">
                                     IMAGE
                                 </label>
-                                <div className="h-32 bg-[#1a1a1a] rounded-lg flex items-center justify-center cursor-pointer hover:bg-[#2a2a2a] transition-colors">
+                                <div className="h-32 bg-[#1a1a1a] rounded-lg flex items-center justify-center cursor-pointer hover:bg-[#2a2a2a] transition-colors ring-2 ring-[#0f0]">
                                     {formData.image ? (
                                         <img
                                             src={formData.image}
@@ -372,7 +374,7 @@ const InputFieldMore = ({ label }) => (
         </label>
         <input
             type="text"
-            className="w-full p-3 bg-transparent border-2 border-[#0f0] outline-none rounded-2xl text-white"
+            className="w-full p-3 bg-[#1a1a1a] border-2 border-[#0f0] outline-none rounded-lg text-white"
         />
     </div>
 );
