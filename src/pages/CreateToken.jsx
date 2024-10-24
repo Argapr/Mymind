@@ -270,7 +270,7 @@ const CreateToken = () => {
                         <div className="space-y-4 bg-[#1a1a1a] p-6 rounded-lg">
                             <button className="w-full border border-[#fff] bg-[#0f0] hover:bg-purple-800 text-black py-3 rounded-md font-medium flex items-center justify-center">
                                 <img
-                                    src={wallet}
+                                    src="/wallet"
                                     alt="Logo"
                                     className="h-5 w-5 mr-2"
                                 />
