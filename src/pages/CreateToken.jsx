@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { ChevronUp, ChevronDown, Plus } from "lucide-react";
 import wallet from "../assets/wallet.png";
+import { useNavigate } from "react-router-dom";
 
 const CreateToken = () => {
+    const navigate = useNavigate();
     const [showOptions, setShowOptions] = useState(false);
     const [showCustomPK, setShowCustomPK] = useState(false);
     const [formData, setFormData] = useState({
@@ -268,9 +270,12 @@ const CreateToken = () => {
                             </div>
                         </div>
                         <div className="space-y-4 bg-[#1a1a1a] p-6 rounded-lg">
-                            <button className="w-full border border-[#fff] bg-[#0f0] hover:bg-purple-800 text-black py-3 rounded-md font-medium flex items-center justify-center">
+                            <button
+                                className="w-full border border-[#fff] bg-[#0f0] hover:bg-purple-800 text-black py-3 rounded-md font-medium flex items-center justify-center"
+                                onClick={() => navigate("/wallet")}
+                            >
                                 <img
-                                    src="/wallet"
+                                    src={wallet}
                                     alt="Logo"
                                     className="h-5 w-5 mr-2"
                                 />
